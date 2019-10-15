@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import com.ctre.phoenix.unmanaged.UnmanagedJNI; 
 import com.revrobotics.CANSparkMax;
@@ -26,22 +27,11 @@ import com.kauailabs.navx.frc.*;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class TankDrive extends TimedRobot {
-    private static final int RightBackMotorID = 4; 
-    private static final int RightFrontMotorID = 3;
-    private static final int LeftBackMotorID = 2; 
-    private static final int LeftFrontMotorID = 1;
-    private CANSparkMax RightBackMotor;
-    private CANSparkMax RightFrontMotor;
-    private CANSparkMax LeftBackMotor;
-    private CANSparkMax LeftFrontMotor;
 
-    private DifferentialDrive m_drive;
-    private Joystick Xbox_controller;
-    private AHRS navx;
-    //\\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/private MecanumDrive mcDrive;
+public class Robot extends TimedRobot {
 
-
+	public static Drivetrain dt;
+	public OI oi;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -49,15 +39,8 @@ public class TankDrive extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
-    RightBackMotor = new CANSparkMax(RightBackMotorID, MotorType.kBrushless);
-    RightFrontMotor = new CANSparkMax(RightFrontMotorID, MotorType.kBrushless);
-    LeftBackMotor = new CANSparkMax(LeftBackMotorID, MotorType.kBrushless);
-    LeftFrontMotor = new CANSparkMax(LeftFrontMotorID, MotorType.kBrushless);
-   
-    Xbox_controller = new Joystick(0);
+  	dt = new Drivetrain();
     navx = new AHRS();
-
   }
 
   /**
@@ -65,7 +48,6 @@ public class TankDrive extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-
   }
 
   /**
@@ -75,14 +57,12 @@ public class TankDrive extends TimedRobot {
   public void autonomousPeriodic() {
     UnmanagedJNI.JNI_FeedEnable(100); // Enable Phoenix CAN Devices for 100 Milliseconds
   }
+  
   /**
    * This function is called once each time the robot enters teleoperated mode.
    */
   @Override
   public void teleopInit() {
-    SpeedControllerGroup leftMotors = new SpeedControllerGroup(LeftBackMotor, LeftFrontMotor);
-    SpeedControllerGroup rightMotors = new SpeedControllerGroup(RightBackMotor, RightFrontMotor);
-    m_drive = new DifferentialDrive(leftMotors, rightMotors);
   }
 
   /**
@@ -91,20 +71,6 @@ public class TankDrive extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     UnmanagedJNI.JNI_FeedEnable(100); // Enable Phoenix CAN Devices for 100 Milliseconds (some vmx-pi requirement)
-    
-    double leftSpeed = -Xbox_controller.getRawAxis(1);//left joystick
-    double rightSpeed = -Xbox_controller.getRawAxis(5);//right joystick
-
-    if (Xbox_controller.getRawButton(2)) {
-      navx.zeroYaw();
-    }
-
-    double yaw = navx.getYaw();
-
-    SmartDashboard.putNumber("yaw", yaw);
-
-    m_drive.tankDrive(leftSpeed*leftSpeed*Math.signum(leftSpeed), rightSpeed*rightSpeed*Math.signum(rightSpeed));
-
   }
 
   /**

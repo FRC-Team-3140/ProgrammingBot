@@ -5,6 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+// NOBODY TOUCHES THIS CLASS!
 package frc.robot;
 
 import edu.wpi.first.wpilibj.RobotBase;
