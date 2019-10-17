@@ -43,62 +43,62 @@ public class Robot extends TimedRobot {
 	// Instantiates a new NavX, which is a sensor that measures heading (direction/angles) and acceleration
     private AHRS navx = new AHRS();
 
-  /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
-   */
-  @Override
-  public void robotInit() {
-  }
+ 	/**
+  	 * This function is run when the robot is first started up and should be
+   	 * used for any initialization code.
+   	 */
+ 	 @Override
+ 	 public void robotInit() {
+ 	 }
 
-  /**
-   * This function is run once each time the robot enters autonomous mode.
-   */
-  @Override
-  public void autonomousInit() {
-  }
+	/**
+	 * This function is run once each time the robot enters autonomous mode.
+	 */
+	@Override
+	public void autonomousInit() {
+	}
 
-  /**
-   * This function is called periodically during autonomous.
-   */
-  @Override
-  public void autonomousPeriodic() {
-    UnmanagedJNI.JNI_FeedEnable(100); // Enable Phoenix CAN Devices for 100 Milliseconds (don't worry about this)
-  }
+	/**
+	 * This function is called periodically during autonomous.
+	 */
+	@Override
+	public void autonomousPeriodic() {
+		UnmanagedJNI.JNI_FeedEnable(100); // Enable Phoenix CAN Devices for 100 Milliseconds (don't worry about this)
+	}
 
-  /**
-   * This function is called once each time the robot enters teleoperated mode.
-   */
-  @Override
-  public void teleopInit() {
-	// setFollowerMode makes the slave motors copy exactly what the master motor does
-	leftDriveSlave.follow(leftDriveMaster);
-	rightDriveSlave.follow(rightDriveMaster);
-  }
+	/**
+	 * This function is called once each time the robot enters teleoperated mode.
+	 */
+	@Override
+	public void teleopInit() {
+		// setFollowerMode makes the slave motors copy exactly what the master motor does
+		leftDriveSlave.follow(leftDriveMaster);
+		rightDriveSlave.follow(rightDriveMaster);
+	}
 
-  /**
-   * This function is called periodically during teleoperated mode.
-   */
-  @Override
-  public void teleopPeriodic() {
-    UnmanagedJNI.JNI_FeedEnable(100); // Enable Phoenix CAN Devices for 100 Milliseconds (some vmx-pi requirement-- don't worry about this)
-    
-    double leftSpeed = xbox.getMainY(); // gets left joystick value and sets it to "leftSpeed"
-	double rightSpeed = xbox.getAltY(); // gets right joystick value and sets it to "rightSpeed"
-	
-	// Sets the speed of a motor controller by specifying a value between -1 (full power backward) and 1 (full power forward)
-	leftDriveMaster.set(leftSpeed); // Sets the left motors to the speed specified by the left joystick
-	rightDriveMaster.set(rightSpeed); // Sets the right motors to the speed specified by the right joystick
+	/**
+	 * This function is called periodically during teleoperated mode.
+	 */
+	@Override
+	public void teleopPeriodic() {
+		UnmanagedJNI.JNI_FeedEnable(100); // Enable Phoenix CAN Devices for 100 Milliseconds (some vmx-pi requirement-- don't worry about this)
+		
+		double leftSpeed = xbox.getMainY(); // gets left joystick value and sets it to "leftSpeed"
+		double rightSpeed = xbox.getAltY(); // gets right joystick value and sets it to "rightSpeed"
+		
+		// Sets the speed of a motor controller by specifying a value between -1 (full power backward) and 1 (full power forward)
+		leftDriveMaster.set(leftSpeed); // Sets the left motors to the speed specified by the left joystick
+		rightDriveMaster.set(rightSpeed); // Sets the right motors to the speed specified by the right joystick
 
-    double yaw = navx.getYaw(); // Gets the "yaw" angle, which measures the amount turned clockwise/counterclockwise by the robot
-    SmartDashboard.putNumber("yaw", yaw); // Pushes the "yaw" angle to SmartDashboard, where we can read its display
-  }
+		double yaw = navx.getYaw(); // Gets the "yaw" angle, which measures the amount turned clockwise/counterclockwise by the robot
+		SmartDashboard.putNumber("yaw", yaw); // Displays the "yaw" angle in SmartDashboard, where we can read its value
+	}
 
-  /**
-   * This function is called periodically during test mode.
-   */
-  @Override
-  public void testPeriodic() {
-  }
+	/**
+	 * This function is called periodically during test mode.
+	 */
+	@Override
+	public void testPeriodic() {
+	}
 
 }
