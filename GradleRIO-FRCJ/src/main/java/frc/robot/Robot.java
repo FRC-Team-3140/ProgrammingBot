@@ -37,6 +37,7 @@ public class Robot extends TimedRobot {
     private CANSparkMax leftDriveMaster = new CANSparkMax(LEFT_DRIVE_MASTER, MotorType.kBrushless);
 
 	// Instantiates a new xbox controller, which has the ID of 0
+	// Note that XboxController is a class we wrote, which can be found in the "libs" folder. 
 	private XboxController xbox = new XboxController(0);
 	
 	// Instantiates a new NavX, which is a sensor that measures heading (direction/angles) and acceleration
