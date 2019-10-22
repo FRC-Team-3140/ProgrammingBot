@@ -21,6 +21,11 @@ import com.kauailabs.navx.frc.*;
  * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the manifest file in the resource
  * directory.
+ * 
+ * This is the main class of our robot code. The name of the class is "Robot" and
+ * it "extends" another class called "TimedRobot". The TimedRobot class was written
+ * by FIRST, which makes our task of coding a robot a lot easier. The TimedRobot
+ * class calls certain methods behind the scenes.
  */
 public class Robot extends TimedRobot {
 	
@@ -45,8 +50,10 @@ public class Robot extends TimedRobot {
 
  	/**
   	 * This function is run when the robot is first started up and should be
-   	 * used for any initialization code.
-   	 */
+	 * used for any initialization code.
+	 * Note: these methods are called automatically by the TimedRobot class, 
+	 * meaning we don't need to call them in our code!
+	 */
  	 @Override
  	 public void robotInit() {
  	 }
@@ -92,13 +99,6 @@ public class Robot extends TimedRobot {
 
 		double yaw = navx.getYaw(); // Gets the "yaw" angle, which measures the amount turned clockwise/counterclockwise by the robot
 		SmartDashboard.putNumber("yaw", yaw); // Displays the "yaw" angle in SmartDashboard, where we can read its value
-	}
-
-	/**
-	 * This function is called periodically during test mode.
-	 */
-	@Override
-	public void testPeriodic() {
 	}
 
 }
