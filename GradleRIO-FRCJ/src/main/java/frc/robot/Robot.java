@@ -54,9 +54,9 @@ public class Robot extends TimedRobot {
 	 * Note: these methods are called automatically by the TimedRobot class, 
 	 * meaning we don't need to call them in our code!
 	 */
- 	 @Override
- 	 public void robotInit() {
- 	 }
+ 	@Override
+ 	public void robotInit() {
+ 	}
 
 	/**
 	 * This function is run once each time the robot enters autonomous mode.
