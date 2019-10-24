@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopInit() {
-		// setFollowerMode makes the slave motors copy exactly what the master motor does
+		// follow makes the slave motors copy exactly what the master motor does
 		leftDriveSlave.follow(leftDriveMaster);
 		rightDriveSlave.follow(rightDriveMaster);
 	}
